@@ -1,7 +1,7 @@
 // This file contains code that we reuse between our tests.
 import helper from "fastify-cli/helper.js";
-import { FastifyInstance } from "fastify/types/instance.js";
-import * as test from "node:test";
+import type { FastifyInstance } from "fastify/types/instance.js";
+import type * as test from "node:test";
 import * as path from "path";
 import { fileURLToPath } from "url";
 

@@ -1,4 +1,4 @@
-import { FastifyPluginCallback } from "fastify";
+import type { FastifyPluginCallback } from "fastify";
 
 const root: FastifyPluginCallback = (fastify) => {
   fastify.get("/", () => ({ root: true }));

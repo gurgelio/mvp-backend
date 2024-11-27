@@ -1,6 +1,6 @@
-import AutoLoad, { AutoloadPluginOptions } from "@fastify/autoload";
+import AutoLoad, { type AutoloadPluginOptions } from "@fastify/autoload";
 import fastifySensible from "@fastify/sensible";
-import { FastifyPluginCallback } from "fastify";
+import type { FastifyPluginCallback } from "fastify";
 import * as path from "path";
 import { fileURLToPath } from "url";
 
