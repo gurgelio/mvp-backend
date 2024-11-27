@@ -1,9 +1,7 @@
-import { FastifyPluginAsync } from "fastify";
+import { FastifyPluginCallback } from "fastify";
 
-const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
-  fastify.get("/", async function (request, reply) {
-    return "this is an example";
-  });
+const example: FastifyPluginCallback = (fastify) => {
+  fastify.get("/", () => "this is an example");
 };
 
 export default example;
