@@ -3,6 +3,7 @@ import fastifySensible from "@fastify/sensible";
 import type { FastifyPluginCallback } from "fastify";
 import * as path from "path";
 import { fileURLToPath } from "url";
+import { prisma } from "./lib/prisma.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,10 @@ const app: FastifyPluginCallback<AppOptions> = (fastify, opts) => {
     dir: path.join(__dirname, "routes"),
     options: opts,
     forceESM: true,
+  });
+
+  fastify.addHook("onClose", async () => {
+    await prisma.$disconnect();
   });
 };
 
