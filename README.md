@@ -1,6 +1,9 @@
-### Projeto feito por
+# AgendaFácil NAF
+
+## Projeto feito por
 
 1. João Paulo Da Costa Rosa - 06007776
+2. Leonardo Gurgel Maciel Ferreira - 06010973
 
 ### Escolha da Situação-Problema
 
