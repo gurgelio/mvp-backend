@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build:ts": "tsc",
+    "build:ts": "rm -rf ./dist/ && tsc",
     "db:migrate": "prisma migrate dev",
     "dev": "npm run build:ts && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"npm:watch:ts\" \"npm:dev:start\"",
-    "dev:start": "node --watch dist/app.js",
+    "dev:start": "FASTIFY_AUTOLOAD_TYPESCRIPT=1 node --watch dist/index.js",
     "format": "prettier --write .",
     "postinstall": "prisma generate",
     "lint": "eslint --fix .",
-    "start": "npm run build:ts && node dist/app.js",
-    "test": "npm run build:ts && tsc -p test/tsconfig.json && FASTIFY_AUTOLOAD_TYPESCRIPT=1 node --test --experimental-test-coverage --loader ts-node/esm test/**/*.ts",
+    "start": "npm run build:ts && NODE_ENV=production node dist/index.js",
+    "pretest": "npm run build:ts && tsc -p test/tsconfig.json && DATABASE_URL=file:./test.db prisma migrate deploy",
+    "test": "NODE_ENV=test FASTIFY_AUTOLOAD_TYPESCRIPT=1 node --test --experimental-test-coverage --loader ts-node/esm test/**/*.ts",
     "watch:ts": "tsc -w"
   },
   "dependencies": {
