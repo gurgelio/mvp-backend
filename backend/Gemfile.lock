@@ -77,6 +77,7 @@ GEM
     bcrypt (3.1.20)
     benchmark (0.4.0)
     bigdecimal (3.1.8)
+    blueprinter (1.1.2)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
     brakeman (6.2.2)
@@ -98,6 +99,7 @@ GEM
     devise-jwt (0.12.1)
       devise (~> 4.0)
       warden-jwt_auth (~> 0.10)
+    diff-lcs (1.5.1)
     drb (2.2.1)
     dry-auto_inject (1.0.1)
       dry-core (~> 1.0)
@@ -133,7 +135,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     mini_mime (1.1.5)
-    minitest (5.25.2)
+    minitest (5.25.3)
     msgpack (1.7.5)
     net-imap (0.5.1)
       date
@@ -214,14 +216,31 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rubocop (1.69.0)
+    rspec-core (3.13.2)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-rails (7.1.0)
+      actionpack (>= 7.0)
+      activesupport (>= 7.0)
+      railties (>= 7.0)
+      rspec-core (~> 3.13)
+      rspec-expectations (~> 3.13)
+      rspec-mocks (~> 3.13)
+      rspec-support (~> 3.13)
+    rspec-support (3.13.2)
+    rubocop (1.69.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
-      regexp_parser (>= 2.4, < 3.0)
-      rubocop-ast (>= 1.36.1, < 2.0)
+      regexp_parser (>= 2.9.3, < 3.0)
+      rubocop-ast (>= 1.36.2, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.36.2)
@@ -292,6 +311,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  blueprinter (~> 1.1)
   bootsnap
   brakeman
   debug
@@ -299,9 +319,16 @@ DEPENDENCIES
   devise-jwt (~> 0.12.1)
   puma (>= 5.0)
   rails (~> 7.2.2)
+  rspec-core (~> 3.13)
+  rspec-expectations (~> 3.13)
+  rspec-mocks (~> 3.13)
+  rspec-rails (~> 7.1)
   rubocop-rails-omakase
   sqlite3 (>= 1.4)
   tzinfo-data
+
+RUBY VERSION
+   ruby 3.3.6p108
 
 BUNDLED WITH
    2.5.22
