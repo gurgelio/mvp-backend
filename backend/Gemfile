@@ -18,6 +18,8 @@ group :development, :test do
 end
 
 group :test do
+  gem "factory_bot_rails", "~> 6.4"
+  gem "faker", "~> 3.5"
   gem "rspec-core", "~> 3.13"
   gem "rspec-expectations", "~> 3.13"
   gem "rspec-mocks", "~> 3.13"
