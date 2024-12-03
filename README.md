@@ -6,6 +6,8 @@ Sqlite já vem pré-instalado na maioria das distribuições Linux. Para utiliza
 
 ### Instalando as dependências
 
+Para instalar a versão do Ruby com o Asdf ou Mise, [é necessário instalar algumas dependências de sistema primeiro](https://github.com/rbenv/ruby-build/wiki#suggested-build-environment)
+
 ```sh
 asdf install # (ou `mise install`)instala a versão do node indicada no .tool-versions
 cd backend && bundle # Instala todas as dependências do Rails
