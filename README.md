@@ -2,20 +2,19 @@
 
 ## Rodando localmente
 
-O projeto somente depende de [Node.js v22](https://nodejs.org/en/download/package-manager) e [Sqlite](https://www.sqlite.org/).
-Sqlite já vem pré-instalado na maioria das distribuições Linux. Para utilizar a versão correta do Node, recomendamos utilizar o [Asdf](https://asdf-vm.com/)
+Sqlite já vem pré-instalado na maioria das distribuições Linux. Para utilizar a versão correta do Node, recomendamos utilizar o [Asdf](https://asdf-vm.com/) ou [Mise](https://mise.jdx.dev/getting-started.html)
 
 ### Instalando as dependências
 
 ```sh
-asdf install # instala a versão do node indicada no .tool-versions
-npm i # Instala todas as dependências e gera os arquivos do Prisma
+asdf install # (ou `mise install`)instala a versão do node indicada no .tool-versions
+cd backend && bundle # Instala todas as dependências do Rails
 ```
 
 E então rode o projeto com:
 
 ```sh
-npm run dev
+rails s
 ```
 
 ## Projeto feito por
