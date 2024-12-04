@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: %i[ show update destroy ]
+  before_action :set_teacher, only: %i[show update destroy]
 
   # GET /teachers
   def index
@@ -39,13 +41,14 @@ class TeachersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_teacher
-      @teacher = Teacher.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def teacher_params
-      params.require(:teacher).permit(:name, :email, :phone_number)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_teacher
+    @teacher = Teacher.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def teacher_params
+    params.require(:teacher).permit(:name, :email, :phone_number)
+  end
 end

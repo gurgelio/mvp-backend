@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class AppointmentsController < ApplicationController
-  before_action :set_appointment, only: %i[ show update destroy ]
-  before_action :authenticate_admin!, only: %i[ create destroy ]
+  before_action :set_appointment, only: %i[show update destroy]
+  before_action :authenticate_admin!, only: %i[create destroy]
 
   # GET /appointments
   def index
@@ -40,13 +42,14 @@ class AppointmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_appointment
-      @appointment = Appointment.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def appointment_params
-      params.require(:appointment).permit(:time, :student_id, :customer_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_appointment
+    @appointment = Appointment.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def appointment_params
+    params.require(:appointment).permit(:time, :student_id, :customer_id)
+  end
 end
