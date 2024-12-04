@@ -2,11 +2,10 @@
 
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show update destroy]
-  before_action :authenticate_user!, only: %i[create update destroy]
 
   # GET /students
   def index
-    @students = Student.all
+    @students = policy_scope(Student).all
 
     render json: @students
   end
@@ -18,6 +17,8 @@ class StudentsController < ApplicationController
 
   # POST /students
   def create
+    authorize Student
+
     @student = Student.new(student_params)
 
     if @student.save
@@ -29,6 +30,8 @@ class StudentsController < ApplicationController
 
   # PATCH/PUT /students/1
   def update
+    authorize @student
+
     if @student.update(student_params)
       render json: @student
     else
@@ -38,6 +41,7 @@ class StudentsController < ApplicationController
 
   # DELETE /students/1
   def destroy
+    authorize @student
     @student.destroy!
   end
 
@@ -45,7 +49,7 @@ class StudentsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_student
-    @student = Student.find(params[:id])
+    @student = policy_scope(Student).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

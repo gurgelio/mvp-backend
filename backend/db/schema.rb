@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_04_190637) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_04_192923) do
   create_table "appointments", force: :cascade do |t|
     t.datetime "time"
     t.integer "student_id"
-    t.integer "customer_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
