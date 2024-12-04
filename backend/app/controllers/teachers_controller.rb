@@ -5,7 +5,7 @@ class TeachersController < ApplicationController
 
   # GET /teachers
   def index
-    @teachers = Teacher.all
+    @teachers = policy_scope(Teacher).all
 
     render json: @teachers
   end
@@ -17,6 +17,8 @@ class TeachersController < ApplicationController
 
   # POST /teachers
   def create
+    authorize Teacher
+
     @teacher = Teacher.new(teacher_params)
 
     if @teacher.save
@@ -28,6 +30,8 @@ class TeachersController < ApplicationController
 
   # PATCH/PUT /teachers/1
   def update
+    authorize @teacher
+
     if @teacher.update(teacher_params)
       render json: @teacher
     else
@@ -37,6 +41,8 @@ class TeachersController < ApplicationController
 
   # DELETE /teachers/1
   def destroy
+    authorize @teacher
+
     @teacher.destroy!
   end
 
@@ -44,7 +50,7 @@ class TeachersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_teacher
-    @teacher = Teacher.find(params[:id])
+    @teacher = policy_scope(Teacher).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class AppointmentPolicy
-  attr_reader :user, :post
-
+class AppointmentPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
       if user.admin?
@@ -13,13 +11,8 @@ class AppointmentPolicy
     end
   end
 
-  def initialize(user, appointment)
-    @user = user
-    @appointment = appointment
-  end
-
   def create?
-    user.admin?
+    user&.admin?
   end
 
   def index?
@@ -27,14 +20,24 @@ class AppointmentPolicy
   end
 
   def show?
-    true
+    record.user_id.nil? || record.user_id == user&.id
   end
 
   def update?
-    user.admin?
+    user.present? # parameters are already validated at permitted_attributes
   end
 
   def destroy?
-    user.admin?
+    user&.admin?
+  end
+
+  def permitted_attributes
+    if user.admin?
+      %i[time student_id user_id]
+    elsif record.user_id == user.id || record.user_id.nil?
+      [:user_id]
+    else
+      []
+    end
   end
 end
