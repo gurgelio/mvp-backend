@@ -1,8 +1,14 @@
 {
   "name": "mvp-backend",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
+    "dev:api": "cd backend && rails s",
     "format": "prettier --write .",
     "lint": "eslint --fix ."
   },

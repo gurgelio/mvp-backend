@@ -2,7 +2,7 @@
 
 ## Rodando localmente
 
-Sqlite já vem pré-instalado na maioria das distribuições Linux. Para utilizar a versão correta do Node, recomendamos utilizar o [Asdf](https://asdf-vm.com/) ou [Mise](https://mise.jdx.dev/getting-started.html)
+Sqlite já vem pré-instalado na maioria das distribuições Linux. Para utilizar a versão correta do Ruby, recomendamos utilizar o [Asdf](https://asdf-vm.com/) ou [Mise](https://mise.jdx.dev/getting-started.html)
 
 ### Instalando as dependências
 
