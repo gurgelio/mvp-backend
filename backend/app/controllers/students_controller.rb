@@ -2,7 +2,7 @@
 
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show update destroy]
-  before_action :authenticate_admin!, only: %i[create update destroy]
+  before_action :authenticate_user!, only: %i[create update destroy]
 
   # GET /students
   def index

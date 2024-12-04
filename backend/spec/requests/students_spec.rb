@@ -22,7 +22,7 @@ RSpec.describe 'Students', type: :request do
   end
 
   describe 'authenticated admin' do
-    let(:admin) { create :admin }
+    let(:admin) { create :user, :admin }
     let(:headers) { Devise::JWT::TestHelpers.auth_headers({ 'Accept' => 'application/json' }, admin) }
 
     it 'POST /' do
