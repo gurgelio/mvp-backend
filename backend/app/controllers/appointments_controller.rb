@@ -1,8 +1,8 @@
-# frozen_string_literal: true
+# frozen_string_literal:
 
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show update destroy]
-  before_action :authenticate_admin!, only: %i[create destroy]
+  before_action :authenticate_user!, only: %i[create destroy]
 
   # GET /appointments
   def index
