@@ -2,7 +2,6 @@
 
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show update destroy]
-  before_action :authenticate_user, except: %i[index]
 
   # GET /appointments
   def index

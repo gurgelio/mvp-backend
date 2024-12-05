@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :appointments
-  devise_for :users, path: 'auth', defaults: { format: :json }
-  resources :teachers
-  resources :students
+  resources :appointments, :teachers, :students, defaults: { format: :json }
+
+  namespace :auth do
+    resources :registrations, only: %i[create update destroy]
+    resources :sessions, only: :create
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

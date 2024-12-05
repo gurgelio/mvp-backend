@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
-class ApplicationController < ActionController::Base
-  include ActionController::MimeResponds
+class ApplicationController < ActionController::API
   include Pundit::Authorization
 
-  respond_to :json
-  skip_before_action :verify_authenticity_token
+  attr_reader :current_user
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  before_action :authenticate_user, unless: :devise_controller?
-  before_action :configure_permitted_parameters, if: :devise_controller?
-  after_action :verify_authorized, unless: :devise_controller?
+  before_action :authenticate_user
+  after_action :verify_authorized
 
   private
 
@@ -18,7 +16,12 @@ class ApplicationController < ActionController::Base
     render status: :forbidden, json: { message: 'You are not authorized to perform this action.' }
   end
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name phone_number])
+  def authenticate_user
+    @decoded = JsonWebToken.decode(request.headers[:Authorization])
+    @current_user = User.find(@decoded[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    render status: :unauthorized, json: { errors: e.message }
+  rescue ::JWT::DecodeError => e
+    render status: :unauthorized, json: { errors: e.message }
   end
 end
