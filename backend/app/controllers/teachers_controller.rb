@@ -2,7 +2,6 @@
 
 class TeachersController < ApplicationController
   before_action :set_teacher, only: %i[show update destroy]
-  before_action :authenticate_user
 
   # GET /teachers
   def index

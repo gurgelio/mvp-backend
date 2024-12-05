@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :validatable
+  has_secure_password
 
   enum :role, { customer: 0, admin: 1 }
   has_many :appointments, inverse_of: :user

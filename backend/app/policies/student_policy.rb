@@ -1,27 +1,29 @@
 # frozen_string_literal: true
 
-class UsersPolicy < ApplicationPolicy
+class StudentPolicy < ApplicationPolicy
   def create?
+    user&.admin?
+  end
+
+  def index?
     true
   end
 
   def show?
-    user.present? && (user.admin? || user.id == record.id)
+    true
   end
 
   def update?
-    show?
+    create?
   end
 
   def destroy?
-    show?
+    create?
   end
 
   class Scope < ApplicationPolicy::Scope
     def resolve
-      return scope.all if user&.admin?
-
-      scope.where(id: user.id)
+      scope.all
     end
   end
 end

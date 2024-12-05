@@ -2,18 +2,18 @@
 
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show update destroy]
-  before_action :authenticate_user
 
   # GET /students
   def index
+    authorize Student
     @students = policy_scope(Student).all
 
-    render json: @students
+    render json: StudentBlueprint.render(@students)
   end
 
   # GET /students/1
   def show
-    render json: @student
+    render json: StudentBlueprint.render(@student)
   end
 
   # POST /students
@@ -23,7 +23,7 @@ class StudentsController < ApplicationController
     @student = Student.new(student_params)
 
     if @student.save
-      render json: @student, status: :created, location: @student
+      render json: StudentBlueprint.render(@student), status: :created, location: @student
     else
       render json: @student.errors, status: :unprocessable_entity
     end
