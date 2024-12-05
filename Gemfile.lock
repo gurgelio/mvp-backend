@@ -35,6 +35,8 @@ GEM
       racc
     racc (1.8.1)
     rack (3.1.8)
+    rack-cors (2.0.2)
+      rack (>= 2.0.0)
     rainbow (3.1.1)
     regexp_parser (2.9.3)
     rubocop (1.69.1)
@@ -74,6 +76,7 @@ PLATFORMS
 
 DEPENDENCIES
   brakeman (~> 6.2)
+  rack-cors (~> 2.0)
   rubocop (~> 1.69)
   rubocop-performance (~> 1.23)
   rubocop-rails (~> 2.27)

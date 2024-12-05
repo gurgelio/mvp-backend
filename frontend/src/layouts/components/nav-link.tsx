@@ -1,8 +1,8 @@
+import { cn } from "@/lib/utils/cn";
 import {
   type LinkProps,
   NavLink as ReactRouterNavLink,
 } from "react-router-dom";
-import { cn } from "../lib/utils/cn";
 
 export function NavLink({ className, ...rest }: LinkProps) {
   return (

@@ -1,50 +1,51 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Lato Extended", "Lato", "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
-
-  --color-primary-300: oklch(54.96% 0.084 188.63);
-  --color-primary-400: oklch(52.25% 0.084 188.48);
-  --color-primary-500: oklch(47.52% 0.083 186.96);
-  --color-primary-600: oklch(44.33% 0.078 186.27);
-  --color-primary-700: oklch(42.43% 0.074 187.05);
-  --color-primary-800: oklch(39.38% 0.067 194.77);
-
-  --color-accent-400: oklch(57.26% 0.105 177.91);
-  --color-accent-500: oklch(55.54% 0.101 179.71);
+  --color-background: var(--color-zinc-100);
+  --color-foreground: var(--color-zinc-900);
+  --color-muted: var(--color-zinc-300);
+  --color-muted-foreground: var(--color-zinc-700);
+  --color-primary: oklch(47.52% 0.083 186.96);
+  --color-primary-foreground: var(--color-zinc-100);
+  --color-accent: oklch(55.54% 0.101 179.71);
+  --color-accent-foreground: oklch(57.26% 0.105 177.91);
 }
 
 @layer base {
-  @font-face {
-    font-family: "Lato Extended";
-    font-style: normal;
-    font-weight: 300;
-    src: url("fonts/Lato-Light-7244318390.woff2");
-    font-display: swap;
+  * {
+    @apply border-primary;
   }
 
-  @font-face {
-    font-family: "Lato Extended";
-    font-style: normal;
-    font-weight: 400;
-    src: url("fonts/Lato-Regular-bd03a2cc27.woff2");
-    font-display: swap;
+  body {
+    @apply subpixel-antialiased bg-background text-foreground @max-sm:text-[87.5%];
   }
 
-  @font-face {
-    font-family: "Lato Extended";
-    font-style: italic;
-    font-weight: 400;
-    src: url("fonts/Lato-Italic-4eb103b4d1.woff2");
-    font-display: swap;
+  strong,
+  b {
+    @apply font-bold;
   }
 
-  @font-face {
-    font-family: "Lato Extended";
-    font-style: normal;
-    font-weight: 700;
-    src: url("fonts/Lato-Bold-cccb897485.woff2");
-    font-display: swap;
+  em {
+    @apply italic;
+  }
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  :focus {
+    @apply outline-accent outline-none;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-accent;
   }
 }

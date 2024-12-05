@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import { Header } from "./header";
+import { Header } from "./components/header";
 
-export function Layout() {
+export function AppLayout() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />

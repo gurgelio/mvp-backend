@@ -4,9 +4,9 @@ import { NavLink } from "./nav-link";
 
 export function Header() {
   return (
-    <header className="bg-primary-500">
-      <Link to="/" className="flex h-16 items-center px-6">
-        <img src="/images/logo-feso.webp" alt="" />
+    <header className="bg-primary-500 flex h-16 items-center gap-12 px-6">
+      <Link to="/" className="flex h-full">
+        <img src="/images/logo-feso.webp" alt="" className="max-h-full" />
       </Link>
 
       <nav className="flex items-center space-x-4 lg:space-x-6">

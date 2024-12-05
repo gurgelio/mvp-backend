@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :appointments
-  devise_for :users, defaults: { format: :json }
+  devise_for :users, path: 'auth', defaults: { format: :json }
   resources :teachers
   resources :students
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

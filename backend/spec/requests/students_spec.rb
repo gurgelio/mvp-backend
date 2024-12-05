@@ -23,7 +23,6 @@ RSpec.describe 'Students', type: :request do
 
   describe 'authenticated admin' do
     let(:admin) { create :user, :admin }
-    let(:headers) { Devise::JWT::TestHelpers.auth_headers({ 'Accept' => 'application/json' }, admin) }
 
     it 'POST /' do
       post '/students', params: { student: new_student.as_json.compact }, headers: headers
