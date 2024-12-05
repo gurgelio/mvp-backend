@@ -4,6 +4,10 @@ require:
   - rubocop-rspec
   - rubocop-rails
 
+AllCops:
+  Exclude:
+    - "**/schema.rb"
+
 Style/Documentation:
   Enabled: false
 # Overwrite or add rules to create your own house style
