@@ -5,15 +5,16 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments
   def index
+    authorize Appointment
     @appointments = policy_scope(Appointment).all
 
-    render json: @appointments
+    render json: AppointmentBlueprint.render(@appointments)
   end
 
   # GET /appointments/1
   def show
     authorize @appointment
-    render json: @appointment
+    render json: AppointmentBlueprint(@appointment)
   end
 
   # POST /appointments
@@ -23,7 +24,7 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(permitted_attributes)
 
     if @appointment.save
-      render json: @appointment, status: :created, location: @appointment
+      render json: AppointmentBlueprint(@appointment), status: :created, location: @appointment
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end
@@ -34,7 +35,7 @@ class AppointmentsController < ApplicationController
     authorize @appointment
 
     if @appointment.update(permitted_attributes)
-      render json: @appointment
+      render json: AppointmentBlueprint(@appointment)
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end
