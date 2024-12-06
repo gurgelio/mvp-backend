@@ -31,7 +31,7 @@ export function IndexUsers() {
         </TableHeader>
         <TableBody>
           {data.map((user) => (
-            <TableRow>
+            <TableRow key={user.id}>
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.phone_number}</TableCell>
