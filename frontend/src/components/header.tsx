@@ -1,8 +1,11 @@
-import { Clock8, GraduationCap, Home, User2 } from "lucide-react";
+import { useUser } from "@/hooks/useUser";
+import { CalendarClock, Clock8, GraduationCap, User2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { NavLink } from "./nav-link";
 
 export function Header() {
+  const user = useUser();
+
   return (
     <header className="bg-primary flex h-20 items-center gap-12 px-6 py-2">
       <Link to="/" className="flex h-full">
@@ -15,17 +18,23 @@ export function Header() {
 
       <nav className="flex items-center space-x-4 lg:space-x-6">
         <NavLink to="/">
-          <Home className="size-4" /> Início
+          <Clock8 className="size-4" /> Horários Disponíveis
         </NavLink>
-        <NavLink to="/students">
-          <GraduationCap className="size-4" /> Alunos
+        <NavLink to="/my-appointments">
+          <CalendarClock className="size-4" /> Meus Horários
         </NavLink>
-        <NavLink to="/appointments">
-          <Clock8 className="size-4" /> Horários
-        </NavLink>
-        <NavLink to="/users">
-          <User2 className="size-4" /> Usuários
-        </NavLink>
+        {user?.role === "admin" && (
+          <>
+            <NavLink to="/students">
+              <GraduationCap className="size-4" /> Alunos
+            </NavLink>
+            <NavLink to="/users">
+              <User2 className="size-4" /> Usuários
+            </NavLink>
+          </>
+        )}
+
+        <NavLink to="/sign-in"></NavLink>
       </nav>
     </header>
   );

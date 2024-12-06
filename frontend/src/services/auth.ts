@@ -5,6 +5,7 @@ export interface User {
   name: string;
   phone_number: string;
   email: string;
+  role: string;
 }
 
 export async function me() {

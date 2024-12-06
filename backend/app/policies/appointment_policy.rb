@@ -24,20 +24,18 @@ class AppointmentPolicy < ApplicationPolicy
   end
 
   def update?
-    user.present? # parameters are already validated at permitted_attributes
+    user&.admin?
+  end
+
+  def make?
+    user.present?
+  end
+
+  def cancel?
+    user.present? && (user.admin? || user.id == record&.user_id)
   end
 
   def destroy?
     user&.admin?
-  end
-
-  def permitted_attributes
-    if user.admin?
-      %i[time student_id user_id]
-    elsif record.user_id == user.id || record.user_id.nil?
-      [:user_id]
-    else
-      []
-    end
   end
 end

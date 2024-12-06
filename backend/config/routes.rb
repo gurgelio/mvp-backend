@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :appointments, :teachers, :students, defaults: { format: :json }
+  resources :teachers, :students
+  resources :appointments do
+    member do
+      delete 'cancel'
+      patch 'make'
+    end
+  end
 
   namespace :auth do
     resources :registrations, only: %i[create update destroy index]

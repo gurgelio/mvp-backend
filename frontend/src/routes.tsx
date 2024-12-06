@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import { Appointments } from "@/pages/appointments";
 import { AuthLayout } from "@/pages/auth/layout";
 import { SignIn } from "@/pages/auth/sign-in";
 import { SignUp } from "@/pages/auth/sign-up";
-import { Home } from "@/pages/home";
 import { AppLayout } from "@/pages/layout";
 import { Students } from "@/pages/students";
+import { Appointments } from "./pages/appointments";
+import { MyAppointments } from "./pages/my-appointments";
 import { Users } from "./pages/users";
 
 export const router = createBrowserRouter([
@@ -17,9 +17,9 @@ export const router = createBrowserRouter([
         path: "/",
         element: <AppLayout />,
         children: [
-          { path: "/", element: <Home /> },
+          { path: "/", element: <Appointments /> },
           { path: "/students", element: <Students /> },
-          { path: "/appointments", element: <Appointments /> },
+          { path: "/my-appointments", element: <MyAppointments /> },
           { path: "/users", element: <Users /> },
         ],
       },

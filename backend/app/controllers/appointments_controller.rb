@@ -1,47 +1,64 @@
 # frozen_string_literal: true
 
 class AppointmentsController < ApplicationController
-  before_action :set_appointment, only: %i[show update destroy]
+  before_action :set_appointment, only: %i[show update destroy make cancel]
 
-  # GET /appointments
   def index
     authorize Appointment
-    @appointments = policy_scope(Appointment).all
+    @appointments = policy_scope(Appointment)
 
-    render json: AppointmentBlueprint.render(@appointments)
+    @appointments.where(user_id: params[:user_id]) if params[:user_id].present?
+
+    render json: AppointmentBlueprint.render(@appointments.all)
   end
 
-  # GET /appointments/1
   def show
     authorize @appointment
-    render json: AppointmentBlueprint(@appointment)
+    render json: AppointmentBlueprint.render(@appointment)
   end
 
-  # POST /appointments
   def create
     authorize Appointment
 
-    @appointment = Appointment.new(permitted_attributes)
+    @appointment = Appointment.new(permitted_attributes(@appointment))
 
     if @appointment.save
-      render json: AppointmentBlueprint(@appointment), status: :created, location: @appointment
+      render json: AppointmentBlueprint.render(@appointment), status: :created, location: @appointment
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /appointments/1
   def update
     authorize @appointment
 
-    if @appointment.update(permitted_attributes)
-      render json: AppointmentBlueprint(@appointment)
+    if @appointment.update(appointment_params)
+      render json: AppointmentBlueprint.render(@appointment)
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /appointments/1
+  def make
+    authorize @appointment
+
+    if @appointment.update(user_id: current_user.id)
+      render json: AppointmentBlueprint.render(@appointment)
+    else
+      render json: @appointment.errors, status: :unprocessable_entity
+    end
+  end
+
+  def cancel
+    authorize @appointment
+
+    if @appointment.update(user_id: nil)
+      render json: AppointmentBlueprint.render(@appointment)
+    else
+      render json: @appointment.errors, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     authorize @appointment
     @appointment.destroy!
@@ -49,7 +66,10 @@ class AppointmentsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  def appointment_params
+    params.require(:appointment).permit(:time, :student_id, :user_id)
+  end
+
   def set_appointment
     @appointment = policy_scope(Appointment).find(params[:id])
   end
