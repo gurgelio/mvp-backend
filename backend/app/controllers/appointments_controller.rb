@@ -43,6 +43,7 @@ class AppointmentsController < ApplicationController
     authorize @appointment
 
     if @appointment.update(user_id: current_user.id)
+      AppointmentMailer.with(appointment: @appointment, user: @current_user).confirmation.deliver_later
       render json: AppointmentBlueprint.render(@appointment)
     else
       render json: @appointment.errors, status: :unprocessable_entity
