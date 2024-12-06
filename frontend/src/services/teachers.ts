@@ -19,12 +19,22 @@ export async function getTeacher(id: string) {
   return response.data;
 }
 
-interface updateTeacherBody {
+interface UpdateTeacherBody {
   name: string;
   email: string;
   phone_number: string;
 }
 
-export async function updateTeacher(id: string, teacher: updateTeacherBody) {
+export async function updateTeacher(id: string, teacher: UpdateTeacherBody) {
   await api.patch(`/teachers/${id}`, teacher);
+}
+
+interface CreateTeacherBody {
+  name: string;
+  email: string;
+  phone_number: string;
+}
+
+export async function createTeacher(teacher: CreateTeacherBody) {
+  await api.post("/teachers", teacher);
 }

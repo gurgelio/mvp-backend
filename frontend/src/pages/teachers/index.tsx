@@ -6,11 +6,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useUser } from "@/hooks/useUser";
 import { getTeachers } from "@/services/teachers";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 export function IndexTeachers() {
+  const user = useUser();
   const { data, error, isPending } = useQuery({
     queryKey: ["teachers"],
     queryFn: getTeachers,
@@ -20,7 +22,16 @@ export function IndexTeachers() {
   if (error) return <p>{error.message}</p>;
 
   return (
-    <>
+    <main>
+      <h1>Professores</h1>
+      {user?.role === "admin" && (
+        <Link
+          to="/teachers/new"
+          className="float-right -mt-10 text-primary font-bold"
+        >
+          Adicionar professor
+        </Link>
+      )}
       <Table>
         <TableHeader>
           <TableRow>
@@ -45,6 +56,6 @@ export function IndexTeachers() {
           ))}
         </TableBody>
       </Table>
-    </>
+    </main>
   );
 }

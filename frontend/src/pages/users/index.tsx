@@ -18,7 +18,7 @@ export function IndexUsers() {
   if (isPending) return <p>Carregando...</p>;
   if (error) return <p>Ocorreu um erro: {error.message}</p>;
   return (
-    <>
+    <main>
       <h1>Usuários</h1>
       <Table>
         <TableHeader>
@@ -40,6 +40,6 @@ export function IndexUsers() {
           ))}
         </TableBody>
       </Table>
-    </>
+    </main>
   );
 }

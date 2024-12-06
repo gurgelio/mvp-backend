@@ -21,12 +21,23 @@ export async function getStudent(id: string) {
   return response.data;
 }
 
-interface updateStudentBody {
+interface UpdateStudentBody {
   name: string;
   email: string;
   phone_number: string;
 }
 
-export async function updateStudent(id: string, student: updateStudentBody) {
+export async function updateStudent(id: string, student: UpdateStudentBody) {
   await api.patch(`/students/${id}`, student);
+}
+
+interface CreateStudentBody {
+  name: string;
+  email: string;
+  phone_number: string;
+  teacher_id: string;
+}
+
+export async function createStudent(student: CreateStudentBody) {
+  await api.post("/students", student);
 }

@@ -25,7 +25,7 @@ export function MyAppointments() {
   if (error) return <p>Ocorreu um erro: {error.message}</p>;
 
   return (
-    <>
+    <main>
       <h1>Meus Horários</h1>
       <Table>
         <TableHeader className="text-left">
@@ -39,7 +39,7 @@ export function MyAppointments() {
           {data.map((appointment) => (
             <TableRow key={appointment.id}>
               <TableCell>
-                {formatDate(appointment.time, "d/M/yy às hh:mm")}
+                {formatDate(appointment.time, "d/M/yy 'às' hh:mm")}
               </TableCell>
               <TableCell>{appointment.student.name}</TableCell>
               <TableCell>
@@ -55,6 +55,6 @@ export function MyAppointments() {
           ))}
         </TableBody>
       </Table>
-    </>
+    </main>
   );
 }
