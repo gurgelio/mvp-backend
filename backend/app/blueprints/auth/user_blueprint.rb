@@ -4,6 +4,6 @@ module Auth
   class UserBlueprint < Blueprinter::Base
     identifier :id
 
-    fields :name, :email, :phone_number
+    fields :name, :email, :phone_number, :role
   end
 end

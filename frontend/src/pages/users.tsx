@@ -26,6 +26,7 @@ export function Users() {
             <TableHead>Nome</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Telefone</TableHead>
+            <TableHead>Tipo</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -34,6 +35,7 @@ export function Users() {
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.phone_number}</TableCell>
+              <TableCell>{user.role}</TableCell>
             </TableRow>
           ))}
         </TableBody>

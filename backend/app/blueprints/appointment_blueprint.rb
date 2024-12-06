@@ -5,6 +5,6 @@ class AppointmentBlueprint < Blueprinter::Base
 
   fields :time
 
-  association :user, blueprint: UserBlueprint
+  association :user, blueprint: Auth::UserBlueprint
   association :student, blueprint: StudentBlueprint
 end

@@ -7,14 +7,31 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAppointments } from "@/services/appointments";
-import { useQuery } from "@tanstack/react-query";
+import { useUser } from "@/hooks/useUser";
+import {
+  cancelAppointment,
+  getAppointments,
+  makeAppointment,
+} from "@/services/appointments";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatDate } from "date-fns";
 
 export function Appointments() {
+  const client = useQueryClient();
+  const user = useUser();
   const { data, error, isPending } = useQuery({
     queryKey: ["appointments"],
     queryFn: getAppointments,
+  });
+
+  const { mutate: makeAppointmentMutation } = useMutation({
+    mutationFn: makeAppointment,
+    onSuccess: () => client.invalidateQueries({ queryKey: ["appointments"] }),
+  });
+
+  const { mutate: cancelAppointmentMutation } = useMutation({
+    mutationFn: cancelAppointment,
+    onSuccess: () => client.invalidateQueries({ queryKey: ["appointments"] }),
   });
 
   if (isPending) return <p>Carregando...</p>;
@@ -22,12 +39,13 @@ export function Appointments() {
 
   return (
     <>
-      <h1>Horários</h1>
+      <h1>Horários Disponíveis</h1>
       <Table>
         <TableHeader className="text-left">
           <TableRow>
             <TableHead>Horário</TableHead>
             <TableHead>Consultor</TableHead>
+            <TableHead>Status</TableHead>
             <TableHead>Ações</TableHead>
           </TableRow>
         </TableHeader>
@@ -39,7 +57,32 @@ export function Appointments() {
               </TableCell>
               <TableCell>{appointment.student.name}</TableCell>
               <TableCell>
-                <Button type="button">Marcar horário</Button>
+                {appointment.user == null ? (
+                  <strong className="text-accent-foreground">Disponível</strong>
+                ) : (
+                  <strong className="text-amber-600">
+                    Reservado para {appointment.user.name}
+                  </strong>
+                )}
+              </TableCell>
+              <TableCell className="flex items-center gap-4">
+                <Button
+                  type="button"
+                  onClick={() => makeAppointmentMutation(appointment.id)}
+                  disabled={appointment.user != null}
+                >
+                  Marcar horário
+                </Button>
+                {user?.role === "admin" && (
+                  <Button
+                    type="button"
+                    onClick={() => cancelAppointmentMutation(appointment.id)}
+                    disabled={appointment.user == null}
+                    className="bg-red-500 hover:bg-red-700"
+                  >
+                    Desmarcar horário
+                  </Button>
+                )}
               </TableCell>
             </TableRow>
           ))}
