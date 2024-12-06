@@ -4,7 +4,7 @@
   Olá, <%= @user.name %>!
   Seu agendamento com <%= @appointment.student.name %> foi realizado.
   Anote o horário:
-    <%= @appointment.time.strftime("%d/%m/%y às %H/%M") %>
+    <%= @appointment.time.strftime("%d/%m/%y às %H:%M") %>
   
   Você pode ver todos os seus agendamentos em <%= "#{@app_ur}/my-appointments" %>
 </p>

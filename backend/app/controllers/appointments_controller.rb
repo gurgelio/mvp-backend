@@ -7,7 +7,13 @@ class AppointmentsController < ApplicationController
     authorize Appointment
     @appointments = policy_scope(Appointment)
 
-    @appointments.where(user_id: params[:user_id]) if params[:user_id].present?
+    render json: AppointmentBlueprint.render(@appointments.all)
+  end
+
+  def my
+    authorize Appointment
+
+    @appointments = policy_scope(Appointment).where(user_id: current_user.id)
 
     render json: AppointmentBlueprint.render(@appointments.all)
   end

@@ -15,6 +15,10 @@ class AppointmentPolicy < ApplicationPolicy
     user&.admin?
   end
 
+  def my?
+    true
+  end
+
   def index?
     true
   end
