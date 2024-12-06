@@ -13,6 +13,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1
   def show
+    authorize @student
     render json: StudentBlueprint.render(@student)
   end
 

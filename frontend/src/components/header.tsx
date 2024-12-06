@@ -1,5 +1,11 @@
 import { useUser } from "@/hooks/useUser";
-import { CalendarClock, Clock8, GraduationCap, User2 } from "lucide-react";
+import {
+  Briefcase,
+  CalendarClock,
+  Clock8,
+  GraduationCap,
+  User2,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { NavLink } from "./nav-link";
 
@@ -27,6 +33,9 @@ export function Header() {
           <>
             <NavLink to="/students">
               <GraduationCap className="size-4" /> Alunos
+            </NavLink>
+            <NavLink to="/teachers">
+              <Briefcase className="size-4" /> Professores
             </NavLink>
             <NavLink to="/users">
               <User2 className="size-4" /> Usuários

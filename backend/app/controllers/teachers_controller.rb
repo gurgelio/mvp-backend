@@ -5,6 +5,7 @@ class TeachersController < ApplicationController
 
   # GET /teachers
   def index
+    authorize Teacher
     @teachers = policy_scope(Teacher).all
 
     render json: @teachers
@@ -12,6 +13,7 @@ class TeachersController < ApplicationController
 
   # GET /teachers/1
   def show
+    authorize @teacher
     render json: @teacher
   end
 
