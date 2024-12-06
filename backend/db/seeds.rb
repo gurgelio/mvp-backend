@@ -9,14 +9,23 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+require 'faker'
 
-User.create!(email: 'leo@gurgel.io', password: 'leonardo', role: :admin, phone_number: '1111111111',
-             name: 'Leonardo Gurgel')
-elon = Teacher.create!(name: 'Elon Musk', email: 'elon@tesla.lixo', phone_number: '33333333333')
-Student.create!(name: 'Neymar da Silva Santos Jr.', email: 'neymar@alhilal.com', phone_number: '2222222222',
-                teacher: elon)
+Auth::User.create!(email: 'admin@admin.com', password: 'leonardo', role: :admin, phone_number: Faker::Number.within(range: 11_111_111..999_999_999_999).to_s,
+                   name: 'Admin')
+Auth::User.create!(email: 'usuario@usuario.com', password: 'leonardo', role: :customer, phone_number: Faker::Number.within(range: 11_111_111..999_999_999_999).to_s,
+                   name: 'Usuário comum')
 
-Student.create!(name: 'Bryan Cranston', email: 'bryan@breakingbad.com', phone_number: '4444444444', teacher: elon)
+5.times do |_|
+  Teacher.create!(name: Faker::Name.name, email: Faker::Internet.email,
+                  phone_number: Faker::Number.within(range: 11_111_111..999_999_999_999).to_s)
+end
 
-teacher2 = Teacher.create!(name: 'Hillary Clinton', email: 'perdieleicao@protrump.com', phone_number: '5555555555')
-Student.create!(name: 'Joe Biden', email: 'joe@joe.joe', phone_number: '6666666666', teacher: teacher2)
+10.times do |_|
+  Student.create!(name: Faker::Name.name, email: Faker::Internet.email, phone_number: Faker::Number.within(range: 11_111_111..999_999_999_999).to_s,
+                  teacher: Teacher.all.sample)
+end
+
+5.times do |_|
+  Appointment.create!(student: Student.all.sample, time: Faker::Date.forward(days: 23))
+end
