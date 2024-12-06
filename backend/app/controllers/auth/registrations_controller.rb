@@ -2,12 +2,20 @@
 
 module Auth
   class RegistrationsController < ApplicationController
-    before_action :set_user, only: %i[update destroy show]
+    before_action :set_user, only: %i[update destroy]
     skip_before_action :authenticate_user, only: %i[create]
+
+    def index
+      skip_authorization
+
+      users = policy_scope(User).all
+      render json: UserBlueprint.render(users)
+    end
 
     def create
       user = User.create!(permitted_attributes)
-      render status: :created, json: { user: user, token: JsonWebToken.encode({ id: user.id }) }
+      render status: :created,
+             json: { user: UserBlueprint.render(user), token: JsonWebToken.encode({ id: user.id }) }
     end
 
     def update

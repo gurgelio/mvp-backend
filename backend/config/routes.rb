@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :appointments, :teachers, :students, defaults: { format: :json }
 
   namespace :auth do
-    resources :registrations, only: %i[create update destroy]
+    resources :registrations, only: %i[create update destroy index]
+    get :me, to: 'sessions#me'
     resources :sessions, only: :create
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

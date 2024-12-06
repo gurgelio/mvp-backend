@@ -3,16 +3,27 @@
 module Auth
   class SessionsController < ApplicationController
     skip_before_action :authenticate_user, only: %i[create]
+    before_action :skip_authorization
+
+    def me
+      if current_user.nil?
+        render status: :unauthorized
+        return
+      end
+
+      render json: UserBlueprint.render(current_user)
+    end
 
     def create
-      skip_authorization
-
       user = User.find_by(email: create_params[:email])
-      return render status: :not_found, json: { message: 'Usuário não encontrado' } if user.nil?
+      if user.nil?
+        render status: :not_found, json: { message: 'Usuário não encontrado' }
+        return
+      end
 
       if user.authenticate(create_params[:password])
-        return render status: :created,
-                      json: { token: JsonWebToken.encode({ id: user.id }) }
+        render status: :created, json: { token: JsonWebToken.encode({ id: user.id }) }
+        return
       end
 
       render status: :bad_request, json: { message: 'Senha incorreta' }
