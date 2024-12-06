@@ -1,7 +1,7 @@
 import { api } from "@/lib/axios";
-import { Teacher } from "./teachers";
+import type { Teacher } from "./teachers";
 
-interface Student {
+export interface Student {
   name: string;
   email: string;
   phone_number: string;
@@ -13,5 +13,5 @@ interface Student {
 }
 
 export async function getStudents() {
-  return (await api.get("/students")).data as Student[];
+  return (await api.get<Student[]>("/students")).data;
 }
