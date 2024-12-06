@@ -10,5 +10,5 @@ export interface Teacher {
 }
 
 export async function getTeachers() {
-  return (await api.get("/teachers")).data as Teacher[];
+  return (await api.get<Teacher[]>("/teachers")).data;
 }

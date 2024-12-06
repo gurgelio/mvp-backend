@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils/cn";
-import { ForwardedRef, forwardRef, type ComponentProps } from "react";
+import { forwardRef, type ComponentProps, type ForwardedRef } from "react";
 
 export const Button = forwardRef(function Button(
   { className, type, ...rest }: ComponentProps<"button">,
