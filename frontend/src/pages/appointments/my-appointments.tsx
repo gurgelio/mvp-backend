@@ -9,15 +9,16 @@ import {
 } from "@/components/ui/table";
 import { useUser } from "@/hooks/useUser";
 import { cancelAppointment, getMyAppointments } from "@/services/appointments";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatDate } from "date-fns";
 
 export function MyAppointments() {
   const user = useUser();
+  const client = useQueryClient();
 
   const { data, error, isPending } = useQuery({
     queryKey: ["appointments", "my"],
-    queryFn: () => getMyAppointments(user!.id),
+    queryFn: () => getMyAppointments(),
     enabled: user != null,
   });
 
@@ -46,7 +47,11 @@ export function MyAppointments() {
                 <Button
                   type="button"
                   className="bg-red-500 hover:bg-red-600"
-                  onClick={() => cancelAppointment(appointment.id)}
+                  onClick={() => {
+                    cancelAppointment(appointment.id).then(() => {
+                      client.invalidateQueries({ queryKey: ["appointments"] });
+                    });
+                  }}
                 >
                   Cancelar
                 </Button>

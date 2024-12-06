@@ -3,6 +3,9 @@
 Rails.application.routes.draw do
   resources :teachers, :students
   resources :appointments do
+    collection do
+      get 'my'
+    end
     member do
       delete 'cancel'
       patch 'make'

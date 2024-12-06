@@ -15,10 +15,8 @@ export async function getAppointments() {
   return response.data;
 }
 
-export async function getMyAppointments(userId: number) {
-  const response = await api.get<Appointment[]>(
-    `/appointments?userId=${userId}`,
-  );
+export async function getMyAppointments() {
+  const response = await api.get<Appointment[]>(`/appointments/my`);
 
   return response.data;
 }

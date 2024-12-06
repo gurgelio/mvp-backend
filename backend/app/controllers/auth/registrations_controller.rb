@@ -6,21 +6,23 @@ module Auth
     skip_before_action :authenticate_user, only: %i[create]
 
     def index
-      skip_authorization
+      authorize User
 
       users = policy_scope(User).all
       render json: UserBlueprint.render(users)
     end
 
     def create
-      user = User.create!(permitted_attributes)
+      skip_authorization
+
+      user = User.create!(create_params)
       render status: :created,
              json: { user: UserBlueprint.render(user), token: JsonWebToken.encode({ id: user.id }) }
     end
 
     def update
       authorize @user
-      @user.update!(permitted_attributes)
+      @user.update!(update_params)
     end
 
     def destroy
@@ -32,6 +34,18 @@ module Auth
 
     def set_user
       @user = User.find_by(params[:id])
+    end
+
+    def create_params
+      params.require(:registration).permit(:name, :email, :password, :phone_number, :password_confirmation)
+    end
+
+    def update_params
+      if user.admin?
+        params.require(:registration).permit(:name, :email, :password, :phone_number, :password_confirmation, :role)
+      else
+        params.require(:registration).permit(:name, :email, :password, :phone_number, :password_confirmation)
+      end
     end
   end
 end

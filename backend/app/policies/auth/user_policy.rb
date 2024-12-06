@@ -2,6 +2,10 @@
 
 module Auth
   class UserPolicy < ApplicationPolicy
+    def index?
+      user&.admin?
+    end
+
     def create?
       true
     end
@@ -16,26 +20,6 @@ module Auth
 
     def destroy?
       show?
-    end
-
-    def permitted_attributes_for_create
-      if user.admin?
-        %i[name email password phone_number password_confirmation]
-      elsif record.id == user.id
-        %i[name email password phone_number]
-      else
-        []
-      end
-    end
-
-    def permitted_attributes_for_update
-      if user.admin?
-        %i[name email password phone_number password_confirmation role]
-      elsif record.id == user.id
-        %i[name email password phone_number password_confirmation]
-      else
-        []
-      end
     end
 
     class Scope < ApplicationPolicy::Scope
