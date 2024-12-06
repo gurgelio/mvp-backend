@@ -20,7 +20,7 @@ class AppointmentsController < ApplicationController
   def create
     authorize Appointment
 
-    @appointment = Appointment.new(permitted_attributes(@appointment))
+    @appointment = Appointment.new(appointment_params)
 
     if @appointment.save
       render json: AppointmentBlueprint.render(@appointment), status: :created, location: @appointment

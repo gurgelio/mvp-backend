@@ -15,6 +15,7 @@ import {
 } from "@/services/appointments";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatDate } from "date-fns";
+import { Link } from "react-router-dom";
 
 export function IndexAppointments() {
   const client = useQueryClient();
@@ -38,8 +39,16 @@ export function IndexAppointments() {
   if (error) return <p>Ocorreu um erro: {error.message}</p>;
 
   return (
-    <>
+    <main>
       <h1>Horários Disponíveis</h1>
+      {user?.role === "admin" && (
+        <Link
+          to="/new-appointment"
+          className="float-right -mt-10 text-primary font-bold"
+        >
+          Criar novo horário
+        </Link>
+      )}
       <Table>
         <TableHeader className="text-left">
           <TableRow>
@@ -53,7 +62,7 @@ export function IndexAppointments() {
           {data.map((appointment) => (
             <TableRow key={appointment.id}>
               <TableCell>
-                {formatDate(appointment.time, "d/M/yy às hh:mm")}
+                {formatDate(appointment.time, "d/M/yy 'às' hh:mm")}
               </TableCell>
               <TableCell>{appointment.student.name}</TableCell>
               <TableCell>
@@ -88,6 +97,6 @@ export function IndexAppointments() {
           ))}
         </TableBody>
       </Table>
-    </>
+    </main>
   );
 }

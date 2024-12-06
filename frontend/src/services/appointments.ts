@@ -23,6 +23,15 @@ export async function getMyAppointments(userId: number) {
   return response.data;
 }
 
+interface CreateAppointmentBody {
+  time: Date;
+  student_id: string;
+}
+
+export async function createAppointment(appointment: CreateAppointmentBody) {
+  await api.post("/appointments", appointment);
+}
+
 export async function makeAppointment(appointmentId: number) {
   const response = await api.patch(`/appointments/${appointmentId}/make`);
 
