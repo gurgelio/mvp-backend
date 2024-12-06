@@ -10,7 +10,7 @@ import { getStudents } from "@/services/students";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
-export function Students() {
+export function IndexStudents() {
   const { data, error, isPending } = useQuery({
     queryKey: ["students"],
     queryFn: getStudents,
@@ -28,6 +28,7 @@ export function Students() {
             <TableHead>Email</TableHead>
             <TableHead>Telefone</TableHead>
             <TableHead>Professor</TableHead>
+            <TableHead>Ações</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -37,8 +38,16 @@ export function Students() {
               <TableCell>{student.email}</TableCell>
               <TableCell>{student.phone_number}</TableCell>
               <TableCell>
-                <Link to={`/teacher/${student.teacher_id}`}>
+                <Link
+                  to={`/teachers/${student.teacher.id}`}
+                  className="text-primary"
+                >
                   {student.teacher.name}
+                </Link>
+              </TableCell>
+              <TableCell>
+                <Link className="text-amber-700" to={`/students/${student.id}`}>
+                  Editar
                 </Link>
               </TableCell>
             </TableRow>

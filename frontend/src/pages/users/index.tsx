@@ -9,7 +9,7 @@ import {
 import { getUsers } from "@/services/auth";
 import { useQuery } from "@tanstack/react-query";
 
-export function Users() {
+export function IndexUsers() {
   const { data, error, isPending } = useQuery({
     queryKey: ["users"],
     queryFn: getUsers,

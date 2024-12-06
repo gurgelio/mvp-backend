@@ -16,7 +16,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatDate } from "date-fns";
 
-export function Appointments() {
+export function IndexAppointments() {
   const client = useQueryClient();
   const user = useUser();
   const { data, error, isPending } = useQuery({
