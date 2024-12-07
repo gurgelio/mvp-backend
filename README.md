@@ -11,12 +11,14 @@ Para instalar a versão do Ruby com o Asdf ou Mise, [é necessário instalar alg
 ```sh
 asdf install # (ou `mise install`)instala a versão do node indicada no .tool-versions
 cd backend && bundle # Instala todas as dependências do Rails
+rails db:migrate # Cria todas as tabelas necessárias para o banco de dados
+npm i # Instala as dependências do React
 ```
 
 E então rode o projeto com:
 
 ```sh
-rails s
+npm run dev # levanta o servidor do app e api simultaneamente
 ```
 
 ## Projeto feito por
